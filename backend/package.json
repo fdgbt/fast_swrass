@@ -1,0 +1,31 @@
+{
+  "name": "star_wars_search",
+  "version": "1.0.0",
+  "description": "Star Wars Rebels Alliance Search System - SWAPI",
+  "main": "srcs/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fdgbt/fast_swrass.git"
+  },
+  "keywords": [
+    "swapi",
+    "hapi"
+  ],
+  "author": "fdagbert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fdgbt/fast_swrass/issues"
+  },
+  "homepage": "https://github.com/fdgbt/fast_swrass#readme",
+  "dependencies": {
+    "@hapi/hapi": "^21.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
