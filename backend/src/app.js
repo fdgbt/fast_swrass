@@ -9,21 +9,6 @@ const testRoutes = require('./routes/test');
 
 const Users = require('./models/users');
 
-const validate = async (request, username, password) => {
-
-    console.log("username:", username, "password", password);
-
-    const user = Users[username];
-    if (!user) {
-        return { credentials: null, isValid: false };
-    }
-
-    const isValid = await bcrypt.compare(password, user.password);
-    const credentials = { id: user.id, name: user.name };
-
-    return { isValid, credentials };
-};
-
 const init = async () => {
 
     const server = Hapi.server({
@@ -37,10 +22,6 @@ const init = async () => {
             }
         }
     });
-
-    await server.register(require('@hapi/basic'));
-
-    server.auth.strategy('simple', 'basic', { validate });
 
     indexRoutes.index(server);
     authRoutes.auth(server);

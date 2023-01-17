@@ -1,23 +1,25 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const { promisify } = require('util');
+const randomBytesAsync = promisify(crypto.randomBytes);
 
 const userTab = require('../models/users');
 
-exports.getLogin = async (request, h) => {
-    try {
-        return ({ response: 'Nothing Here' });
-    } catch (err) {
-        console.log("error getLogin:", err);
-        return err;
-    }
-}
+const getKey = (size) => { 
+    return randomBytesAsync(size)
+  }
 
 exports.postLogin = async (request, h) => {
     try {
 
         const username = h.request.payload.username;
         const password = h.request.payload.password;
+
+        if (!username || !password) {
+            return { token: false };
+        }
 
         const users = userTab.Users;
 
@@ -26,17 +28,19 @@ exports.postLogin = async (request, h) => {
                 return true;
         });
 
-        if (!user) {
+        if (!user ) {
             return { token: false };
         }
 
         const isValid = await bcrypt.compare(password, user.password);
+        const randomToken = await getKey(16);
 
         if (isValid) {
-            return { token: 'test123' }
+            return { token: randomToken.toString('base64') }
         }
 
         return { token: false };
+
     } catch (err) {
         console.log("error postLogin:", err);
         return err;

@@ -1,24 +1,24 @@
 import { useState } from 'react';
 
-import "./login.css";
+import "./Login.css";
 
-const loginUser = (formData) => {
+const loginUser = async (formData) => {
 
-    return (
-        fetch('http://localhost:8080/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(data => {
-                return data.json();
-            })
-    )
+    const data = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+
+    const result = await data.json();
+    console.log("POST login result:", result);
+    return result;
+
 }
 
-export default function Login({ setToken }) {
+const Login = ({ setToken }) => {
 
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
@@ -26,7 +26,7 @@ export default function Login({ setToken }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const token = await loginUser( { username, password } );
+        const token = await loginUser({ username, password });
 
         if (token.token)
             setToken(token.token);
@@ -48,3 +48,5 @@ export default function Login({ setToken }) {
         </form>
     )
 }
+
+export default Login;
