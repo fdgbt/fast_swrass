@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/fdgbt/fast_swrass#readme",
   "dependencies": {
-    "@hapi/hapi": "^21.2.0"
+    "@hapi/basic": "^7.0.0",
+    "@hapi/hapi": "^21.2.0",
+    "bcrypt": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

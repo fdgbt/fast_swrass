@@ -8,4 +8,16 @@ exports.index = (server) => {
         handler: indexController.indexSearch
     });
 
+    server.route({
+        method: 'GET',
+        path: '/index',
+        handler: indexController.indexSearch
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/home',
+        handler: indexController.indexSearch
+    });
+
 }
