@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-import "./Login.css";
+import Button from '../UI/Button/Button';
+
+import styles from "./Login.module.css";
 
 const loginUser = async (formData) => {
 
@@ -33,17 +35,17 @@ const Login = ({ setToken }) => {
     }
 
     return (
-        <form className="login" onSubmit={handleSubmit}>
-            <label>
-                <p>Username</p>
-                <input type="text" onChange={e => setUsername(e.target.value)} />
+        <form className={styles.login} onSubmit={handleSubmit}>
+            <label className={styles.label}>
+                <p className={styles.p}>Username</p>
+                <input type="text" onChange={e => setUsername(e.target.value)} required />
             </label>
             <label>
-                <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)} />
+                <p className={styles.p}>Password</p>
+                <input type="password" onChange={e => setPassword(e.target.value)} required />
             </label>
             <div>
-                <button type="submit">Login</button>
+                <Button type="submit">Login</Button>
             </div>
         </form>
     )

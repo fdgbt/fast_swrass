@@ -6,11 +6,11 @@ const { promisify } = require('util');
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
-const userTab = require('../models/users');
+const UserTab = require('../models/users');
 
-const getKey = (size) => { 
+const getKey = (size) => {
     return randomBytesAsync(size);
-  }
+}
 
 exports.postLogin = async (request, h) => {
     try {
@@ -22,14 +22,14 @@ exports.postLogin = async (request, h) => {
             return { token: false };
         }
 
-        const users = userTab.Users;
+        const users = UserTab.Users;
 
         const user = users.find((user, index) => {
             if (user.username === username)
                 return true;
         });
 
-        if (!user ) {
+        if (!user) {
             return { token: false };
         }
 

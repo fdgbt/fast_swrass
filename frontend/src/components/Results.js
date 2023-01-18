@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
 import Card from './Card';
-
 import Result from './Result';
+import Button from '../UI/Button/Button';
+
+import styles from './Results.module.css'
 
 const searchWookie = async (formData) => {
 
@@ -61,7 +63,7 @@ const Results = (props) => {
     };
 
     const resultsList =
-        <ul>
+        <ul className={styles.ul}>
             {
                 Object.keys(props.list).map((type, i) => (
                     props.list[type].map((result, i) => (
@@ -73,43 +75,48 @@ const Results = (props) => {
 
     let results =
         <div>
-            <p>Results</p>
+            <h2>✨ - Results - ✨</h2>
             {resultsList}
         </div>;
 
     if (checkNoResult(props.list)) {
         results =
             <div>
-                <p>No Result...</p>
+                <p>No Result... 😱</p>
             </div>
     }
 
     let list =
         <div>
             {results}
-            <button onClick={clickHandlerNew}>New Search</button>
+            <Button onClick={clickHandlerNew}>New Search</Button>
         </div>;
 
     if (selectedCard) {
+        let wookie;
+
+        if (selectedCard.type !== "films")
+            wookie = <Button onClick={clickHandlerWookie}>Mode Wookie</Button>;
+
         list =
             <div>
-                <button onClick={clickHandlerBack}>Back to results</button>
-                <Card result={selectedCard.result} />
-                <button onClick={clickHandlerWookie}>Mode Wookie</button>
-            </div>
+                <Button onClick={clickHandlerBack}>Back to results</Button>
+                <Card result={selectedCard.result} type={selectedCard.type} />
+                {wookie}
+            </div>;
     }
 
     if (wookieCard) {
         list =
             <div>
-                <button onClick={clickHandlerBack}>Back to results</button>
-                <Card result={wookieCard} />
-                <button onClick={clickHandlerClassic}>Mode Classic</button>
-            </div>
+                <Button onClick={clickHandlerBack}>Back to results</Button>
+                <Card result={wookieCard} type={selectedCard.type} />
+                <Button onClick={clickHandlerClassic}>Mode Classic</Button>
+            </div>;
     }
 
     return (
-        <div>
+        <div className={styles.results}>
             {list}
         </div>
     )

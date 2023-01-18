@@ -1,36 +1,25 @@
 'use strict';
 
+const Types = require('../models/types');
+
 exports.postSearch = async (request, h) => {
     try {
-        const root = {
-            films: "https://swapi.dev/api/films/",
-            people: "https://swapi.dev/api/people/",
-            planets: "https://swapi.dev/api/planets/",
-            species: "https://swapi.dev/api/species/",
-            starships: "https://swapi.dev/api/starships/",
-            vehicles: "https://swapi.dev/api/vehicles/"
-        };
-
-        const list = {
-            films: [],
-            people: [],
-            planets: [],
-            species: [],
-            starships: [],
-            vehicles: []
-        };
-
         let data = null;
         let result = null;
 
-        for (const type in root) {
-            data = await fetch(`${root[type]}?search=${h.request.payload.search}`);
+        const filters = h.request.payload.filters;
 
-            result = await data.json();
-            list[type] = result.results;
+        for (const type in Types.Root) {
+            if (filters[type]) {
+                data = await fetch(`${Types.Root[type]}?search=${h.request.payload.search}`);
+                result = await data.json();
+                Types.List[type] = result.results;
+            } else {
+                Types.List[type] = [];
+            }
         }
 
-        return list;
+        return Types.List;
 
     } catch (err) {
         console.log("error postSearch:", err);

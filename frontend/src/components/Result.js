@@ -1,5 +1,6 @@
+import Types from '../UI/Types/Types'
 
-import './Result.css'
+import styles from './Result.module.css'
 
 const Result = (props) => {
 
@@ -10,10 +11,17 @@ const Result = (props) => {
         });
     }
 
+    const icon = Types.Icons[props.type];
+
+    let resultName = props.result.name;
+
+    if (!resultName)
+        resultName = props.result.title;
+
     const result =
         <div>
-            <li className="result" onClick={clickHandler}>
-                <span>Name: {props.result.name} | Type: {props.type}</span>
+            <li className={styles.result} onClick={clickHandler}>
+                <span>Name: {resultName} | Type: {props.type} {icon}</span>
             </li>
         </div>;
 
