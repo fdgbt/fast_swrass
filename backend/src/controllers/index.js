@@ -5,15 +5,15 @@ const Types = require('../models/types');
 exports.postSearch = async (request, h) => {
     try {
         let data = null;
-        let result = null;
+        let res = null;
 
         const filters = h.request.payload.filters;
 
         for (const type in Types.Root) {
             if (filters[type]) {
                 data = await fetch(`${Types.Root[type]}?search=${h.request.payload.search}`);
-                result = await data.json();
-                Types.List[type] = result.results;
+                res = await data.json();
+                Types.List[type] = res.results;
             } else {
                 Types.List[type] = [];
             }

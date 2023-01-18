@@ -1,28 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import Card from './Card';
 import Result from './Result';
 import Button from '../UI/Button/Button';
 
 import styles from './Results.module.css'
-
-const searchWookie = async (formData) => {
-
-    const data = await fetch('http://localhost:8080/wookie', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-
-    const result = await data.json();
-
-    console.log("POST wookie result:", result)
-
-    return result;
-
-}
 
 const checkNoResult = (list) => {
     let noResult = true;
@@ -41,10 +23,30 @@ const checkNoResult = (list) => {
 const Results = (props) => {
 
     const [selectedCard, setSelectedCard] = useState(false);
-    const [wookieCard, setWoookieCard] = useState(false);
+    const [enabledWookie, setEnabledWookie] = useState(false);
+    const wookieCard = useRef(false);
+
+    useEffect(() => {
+        const searchWookie = async (formData) => {
+
+            const data = await fetch('http://localhost:8080/wookie', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+
+            wookieCard.current = await data.json();
+        };
+
+        if (selectedCard) {
+            searchWookie(selectedCard.result.url);
+        }
+    }, [selectedCard]);
 
     const clickHandlerBack = (event) => {
-        setWoookieCard(false);
+        setEnabledWookie(false);
         setSelectedCard(false);
     };
 
@@ -53,13 +55,11 @@ const Results = (props) => {
     };
 
     const clickHandlerWookie = async (event) => {
-        const wookieData = await searchWookie(selectedCard.result.url)
-
-        setWoookieCard(wookieData);
+        setEnabledWookie(true);
     };
 
     const clickHandlerClassic = async (event) => {
-        setWoookieCard(false);
+        setEnabledWookie(false);
     };
 
     const resultsList =
@@ -106,11 +106,11 @@ const Results = (props) => {
             </div>;
     }
 
-    if (wookieCard) {
+    if (enabledWookie) {
         list =
             <div>
                 <Button onClick={clickHandlerBack}>Back to results</Button>
-                <Card result={wookieCard} type={selectedCard.type} />
+                <Card result={wookieCard.current} type={selectedCard.type} />
                 <Button onClick={clickHandlerClassic}>Mode Classic</Button>
             </div>;
     }

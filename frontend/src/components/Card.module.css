@@ -1,3 +1,7 @@
 .field {
     font-weight: bold;
 }
+
+.fieldContent {
+    white-space: pre;
+}

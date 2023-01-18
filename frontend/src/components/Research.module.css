@@ -33,6 +33,10 @@
     cursor: pointer;
 }
 
+.filtersTitle:hover {
+    color: #FFDC80;
+}
+
 .filterName {
     width: auto;
 }
@@ -41,4 +45,9 @@
     display: flex;
     flex-direction: row;
     margin: 0.5rem;
+}
+
+.filterLabel:hover {
+    color: #FFDC80;
+    cursor: pointer;
 }

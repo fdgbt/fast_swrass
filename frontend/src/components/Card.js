@@ -5,9 +5,17 @@ import styles from './Card.module.css';
 const Card = (props) => {
 
     const card = Object.keys(props.result).map((field, i) => {
+        const isArray = Array.isArray(props.result[field]);
+
+        let fieldContent = props.result[field];
+
+        if (isArray) {
+            fieldContent = props.result[field].join('\n');
+        }
+
         return (
             <div key={i}>
-                <div className={styles.field}>-- {field} --</div>{props.result[field]}<br /><br />
+                <div className={styles.field}>-- {field} --</div><div className={styles.fieldContent}>{fieldContent}</div><br />
             </div>
         )
     })
