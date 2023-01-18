@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: 'Dockerfile'
+    ports:
+      - '8080:8080'
+    working_dir: /app
+    volumes:
+      # logs persistance from the api
+      - logs:/app/logs
+      # bind mount to sync for auto-update
+      - ./backend:/app
+      # not erase this folder in the container from bind mounts
+      - /app/node_modules
+    restart: always
+    env_file:
+      - ./env/node.env
+    container_name: swapi_nodejs
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    volumes:
+       # bind mount to sync for auto-update
+      - ./frontend/src:/app/src
+      # not erase this folder in the container from bind mounts
+      - /app/node_modules
+    restart: always
+    env_file:
+      - ./env/react.env
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    container_name: swapi_reactjs
+
+volumes:
+  logs:

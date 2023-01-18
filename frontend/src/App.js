@@ -34,7 +34,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Results list={list} />
+        <Results list={list} setList={setList} />
       </header>
     </div>
   );

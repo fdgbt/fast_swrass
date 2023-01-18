@@ -3,12 +3,13 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const { promisify } = require('util');
+
 const randomBytesAsync = promisify(crypto.randomBytes);
 
 const userTab = require('../models/users');
 
 const getKey = (size) => { 
-    return randomBytesAsync(size)
+    return randomBytesAsync(size);
   }
 
 exports.postLogin = async (request, h) => {
@@ -33,10 +34,11 @@ exports.postLogin = async (request, h) => {
         }
 
         const isValid = await bcrypt.compare(password, user.password);
-        const randomToken = await getKey(16);
 
         if (isValid) {
-            return { token: randomToken.toString('base64') }
+            const randomToken = await getKey(16);
+
+            return { token: randomToken.toString('base64') };
         }
 
         return { token: false };

@@ -1,3 +1,5 @@
+'use strict';
+
 exports.postSearch = async (request, h) => {
     try {
         const root = {
@@ -7,7 +9,7 @@ exports.postSearch = async (request, h) => {
             species: "https://swapi.dev/api/species/",
             starships: "https://swapi.dev/api/starships/",
             vehicles: "https://swapi.dev/api/vehicles/"
-        }
+        };
 
         const list = {
             films: [],
@@ -16,22 +18,40 @@ exports.postSearch = async (request, h) => {
             species: [],
             starships: [],
             vehicles: []
-        }
+        };
 
         let data = null;
         let result = null;
 
-        for (const category in root) {
-            data = await fetch(`${root[category]}?search=${h.request.payload}`);
-            
+        for (const type in root) {
+            data = await fetch(`${root[type]}?search=${h.request.payload.search}`);
+
             result = await data.json();
-            list[category] = result.results;
+            list[type] = result.results;
         }
 
         return list;
 
     } catch (err) {
-        console.log("error indexSearch:", err);
+        console.log("error postSearch:", err);
+        return err;
+    }
+}
+
+exports.postWookie = async (request, h) => {
+    try {
+
+        let data = null;
+        let result = null;
+
+        data = await fetch(`${h.request.payload}?format=wookiee`);
+
+        result = await data.json();
+
+        return result;
+
+    } catch (err) {
+        console.log("error postSearch:", err);
         return err;
     }
 }

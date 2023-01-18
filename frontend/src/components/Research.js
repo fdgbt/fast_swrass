@@ -27,7 +27,7 @@ const Research = ({ setList }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const searchResult = await searchDatabase(request);
+        const searchResult = await searchDatabase({ search: request });
 
         setList(searchResult);
     }
@@ -36,7 +36,7 @@ const Research = ({ setList }) => {
         <form className="research" onSubmit={handleSubmit}>
             <label>
                 <p>Star Wars Rebels Alliance Search System</p>
-                <input type="text" onChange={e => setRequest(e.target.value)}/>
+                <input type="text" onChange={e => setRequest(e.target.value)} />
             </label>
             <div>
                 <button type="submit">Search</button>

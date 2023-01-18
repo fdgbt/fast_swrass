@@ -1,28 +1,21 @@
-import { useState } from 'react';
-
-import Card from './Card';
 
 import './Result.css'
 
 const Result = (props) => {
 
-    const [selectedCard, setSelectedCard] = useState(false);
-
     const clickHandler = (event) => {
-        setSelectedCard(true);
+        props.setSelectedCard({
+            result: props.result,
+            type: props.type
+        });
     }
 
-    let result =
+    const result =
         <div>
             <li className="result" onClick={clickHandler}>
-                <span>Name: {props.result.name} | Category: {props.category}</span>
+                <span>Name: {props.result.name} | Type: {props.type}</span>
             </li>
-        </div>
-
-    if (selectedCard) {
-        result =
-            <Card result={props.result} category={props.category} />
-    }
+        </div>;
 
     return (
         <div>

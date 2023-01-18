@@ -8,4 +8,10 @@ exports.index = (server) => {
         handler: indexController.postSearch
     });
 
+    server.route({
+        method: 'POST',
+        path: '/wookie',
+        handler: indexController.postWookie
+    });
+
 }

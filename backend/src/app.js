@@ -1,19 +1,16 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
-const bcrypt = require('bcrypt');
 
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const testRoutes = require('./routes/test');
 
-const Users = require('./models/users');
-
 const init = async () => {
 
     const server = Hapi.server({
         port: 8080,
-        host: 'localhost',
+        host: '0.0.0.0',
         "routes": {
             "cors": {
                 "origin": ["http://localhost:3000"],
@@ -23,9 +20,9 @@ const init = async () => {
         }
     });
 
+    testRoutes.test(server);
     indexRoutes.index(server);
     authRoutes.auth(server);
-    testRoutes.test(server);
 
     await server.start();
     console.log('Server running on %s', server.info.uri);
