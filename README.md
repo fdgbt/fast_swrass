@@ -38,7 +38,8 @@ docker network prune
 Open a web browser then go to: http://localhost:3000
 
 ## Screenshots
-![login](https://user-images.githubusercontent.com/52746061/213005648-2fd476b4-4c97-4bc6-b594-385d3aafe604.png)  
-![research](https://user-images.githubusercontent.com/52746061/213005669-e2401cf0-e76e-47ed-b164-da6397aefef5.png)  
-![results](https://user-images.githubusercontent.com/52746061/213005682-aa934654-6797-472c-9f2e-7a9972c3a8e4.png)  
-![Detailed Card](https://user-images.githubusercontent.com/52746061/213005689-90822325-c01d-4b47-ae4e-683d0e2ef85f.png)  
+![search](https://user-images.githubusercontent.com/52746061/213400210-3cce7441-54d0-4980-9064-eb5459b74f50.png)  
+![results](https://user-images.githubusercontent.com/52746061/213400293-124dcead-751b-4f26-8220-489501262e66.png)  
+![details1](https://user-images.githubusercontent.com/52746061/213400332-cafc95b5-a8d5-437d-a3bd-5945e79a2cf0.png)  
+![details2](https://user-images.githubusercontent.com/52746061/213400446-0d1ef028-2289-4ea1-9429-c77e9b2a3b10.png)  
+![whookie](https://user-images.githubusercontent.com/52746061/213400481-b91b36b3-7af4-49ba-b2e6-8f7a94ab1cff.png)  
