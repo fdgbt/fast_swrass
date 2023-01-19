@@ -40,7 +40,45 @@ exports.postWookie = async (request, h) => {
         return result;
 
     } catch (err) {
-        console.log("error postSearch:", err);
+        console.log("error postWookie:", err);
+        return err;
+    }
+}
+
+exports.postDetails = async (request, h) => {
+    try {
+
+        let data = null;
+        let result = null;
+
+        data = await fetch(`https://swapi.dev/api/${h.request.payload.type}/${h.request.payload.id}/`);
+
+        result = await data.json();
+
+        return {
+            type: h.request.payload.type,
+            result: result
+        };
+
+    } catch (err) {
+        console.log("error postDetails:", err);
+        return err;
+    }
+}
+
+exports.postDetailsWookie = async (request, h) => {
+    try {
+
+        let data = null;
+        let result = null;
+
+        data = await fetch(`https://swapi.dev/api/${h.request.payload.type}/${h.request.payload.id}/?format=wookiee`);
+
+        result = await data.json();
+        return result;
+
+    } catch (err) {
+        console.log("error postDetailsWookie:", err);
         return err;
     }
 }

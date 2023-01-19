@@ -5,27 +5,32 @@ import Types from '../UI/Types/Types';
 
 import styles from "./Research.module.css";
 
+const loadingPic = require('../assets/loading.webp');
+
 const searchDatabase = async (formData) => {
+    try {
+        const data = await fetch('http://localhost:8080/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
 
-    const data = await fetch('http://localhost:8080/search', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
+        const result = await data.json();
+        console.log("POST search result:", result)
+        return result;
 
-    const result = await data.json();
-
-    console.log("POST search result:", result)
-
-    return result;
-
+    } catch (err) {
+        console.log("error searchDatabase:", err);
+        throw new Error(err);
+    }
 }
 
 const Research = ({ setList }) => {
 
     const [request, setRequest] = useState();
+    const [submiting, setSubmiting] = useState(false);
     const [filters, setFilters] = useState(false);
     const [typesFilter, setTypesFilter] = useState(Types.Filters);
 
@@ -46,10 +51,12 @@ const Research = ({ setList }) => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
+        setSubmiting(true);
 
         const searchResult = await searchDatabase({ search: request, filters: typesFilter });
 
         setList(searchResult);
+        setSubmiting(false);
     };
 
     const checkboxes = Object.keys(Types.Icons).map((type, i) => (
@@ -70,6 +77,18 @@ const Research = ({ setList }) => {
             </div>
     }
 
+    let submit =
+        <div>
+            <Button type="submit">Search</Button>
+        </div>;
+
+    if (submiting) {
+        submit =
+            <div className={styles.submiting}>
+                <img src={loadingPic} alt="Searching..." width="50px" />
+            </div>;
+    };
+
     return (
         <form className={styles.research} onSubmit={submitHandler}>
             <label className={styles.searchLabel}>
@@ -77,9 +96,7 @@ const Research = ({ setList }) => {
                 <input className={styles.input} type="text" id="search" name="search" onChange={e => setRequest(e.target.value)} required />
             </label>
             {filterSwitch}
-            <div>
-                <Button type="submit">Search</Button>
-            </div>
+            {submit}
         </form>
     )
 }

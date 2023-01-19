@@ -37,10 +37,14 @@ const Results = (props) => {
                 body: JSON.stringify(formData)
             })
 
+            if (!data.ok) {
+                throw new Error('POST Wookie failed');
+            }
+
             wookieCard.current = await data.json();
         };
 
-        if (selectedCard) {
+        if (selectedCard && selectedCard.type !== "films") {
             searchWookie(selectedCard.result.url);
         }
     }, [selectedCard]);

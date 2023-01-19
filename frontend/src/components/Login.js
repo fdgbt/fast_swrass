@@ -5,19 +5,23 @@ import Button from '../UI/Button/Button';
 import styles from "./Login.module.css";
 
 const loginUser = async (formData) => {
+    try {
+        const data = await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
 
-    const data = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
+        const result = await data.json();
+        console.log("POST login result:", result);
+        return result;
 
-    const result = await data.json();
-    console.log("POST login result:", result);
-    return result;
-
+    } catch (err) {
+        console.log("error searchDatabase:", err);
+        throw new Error(err);
+    }
 }
 
 const Login = ({ setToken }) => {
@@ -30,8 +34,10 @@ const Login = ({ setToken }) => {
 
         const token = await loginUser({ username, password });
 
-        if (token.token)
+        if (token.token) {
+            localStorage.setItem('token', token.token);
             setToken(token.token);
+        }
     }
 
     return (

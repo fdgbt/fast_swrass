@@ -5,3 +5,11 @@
 .fieldContent {
     white-space: pre;
 }
+
+.DirectDetails {
+    color: darkgray;
+}
+
+.DirectDetails:hover {
+    color: #FFDC80;
+}

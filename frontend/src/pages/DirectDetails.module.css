@@ -1,0 +1,27 @@
+.DirectDetails {
+  text-align: center;
+}
+
+.DirectDetailsHeader {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.searchDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70rem;
+  max-width: 90%;
+  margin: 3rem auto;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #203354;
+}

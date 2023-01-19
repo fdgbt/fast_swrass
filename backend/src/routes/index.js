@@ -14,4 +14,16 @@ exports.index = (server) => {
         handler: indexController.postWookie
     });
 
+    server.route({
+        method: 'POST',
+        path: '/details',
+        handler: indexController.postDetails
+    });
+
+    server.route({
+        method: 'POST',
+        path: '/detailswookie',
+        handler: indexController.postDetailsWookie
+    });
+
 }

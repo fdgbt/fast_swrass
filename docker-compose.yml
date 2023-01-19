@@ -10,8 +10,6 @@ services:
       - '8080:8080'
     working_dir: /app
     volumes:
-      # logs persistance from the api
-      - logs:/app/logs
       # bind mount to sync for auto-update
       - ./backend:/app
       # not erase this folder in the container from bind mounts
@@ -38,6 +36,3 @@ services:
     depends_on:
       - backend
     container_name: swapi_reactjs
-
-volumes:
-  logs:

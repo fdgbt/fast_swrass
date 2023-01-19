@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Types from '../UI/Types/Types'
 
 import styles from './Card.module.css';
@@ -9,8 +11,19 @@ const Card = (props) => {
 
         let fieldContent = props.result[field];
 
+        if (typeof fieldContent === 'string' && fieldContent.includes('https://')) {
+            fieldContent = <Link to={fieldContent.substring(21)} className={styles.DirectDetails}>{fieldContent}</Link>
+        }
+
         if (isArray) {
-            fieldContent = props.result[field].join('\n');
+            fieldContent = fieldContent.map((url, i) => {
+                if (url.includes('https://')) {
+                    url = <div key={i}><Link to={url.substring(21)} className={styles.DirectDetails}>{url}</Link></div>
+                } else {
+                    url = <div key={i}>{url}</div>
+                }
+                return url;
+            });
         }
 
         return (

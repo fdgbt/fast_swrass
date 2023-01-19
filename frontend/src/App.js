@@ -1,43 +1,16 @@
-import { useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Login from './components/Login';
-import Research from './components/Research';
-import Results from './components/Results';
+import MainPath from './pages/MainPath';
+import DirectDetails from './pages/DirectDetails';
 
-import './App.css';
+const router = createBrowserRouter([
+  {path: '/', element: <MainPath />, errorElement: <MainPath />},
+  {path: '/:type/:id/', element: <DirectDetails />}
+]);
 
 const App = () => {
 
-  const [token, setToken] = useState();
-  const [list, setList] = useState();
-
-  if (!token) {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <Login setToken={setToken} />
-        </header>
-      </div>
-    )
-  }
-
-  if (!list) {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <Research setList={setList} />
-        </header>
-      </div>
-    );
-  }
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Results list={list} setList={setList} />
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />
 
 }
 
