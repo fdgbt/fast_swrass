@@ -1,6 +1,14 @@
 # fast_swrass
 Star Wars Rebels Alliance Search System  
 
+## Env
+Create the env folder before to start.  
+```
+mkdir env
+cd env
+touch node.env react.env
+```
+
 ## Start
 Start the Frontend and Backend container.  
 ```
